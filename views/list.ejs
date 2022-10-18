@@ -9,6 +9,15 @@
     </head>
     <body>
         <div><%= kindOfDay %></div>
+        <ul>
+            <% for (let i = 0; i < newListItems.length; i++) { %>
+                <li><%= newListItems[i] %> </li>
 
+            <% } %>
+        </ul>
+        <form action="/" method="post">
+            <input type="text" name="newItem" id="" placeholder="Add new one">
+            <button type="submit" name="btn">Add</button>
+        </form>
     </body>
 </html>
