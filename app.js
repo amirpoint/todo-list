@@ -1,21 +1,19 @@
 //jshint esversion:6
 const express = require("express");
 const bodyParser = require("body-parser");
+const date = require(`${__dirname}/date.js`);//own module
 
 const app = express();
 const port = 3000;
-let items = ["First item", "Second item", "3nd item"];//default items
-let workItems = [];
+const items = ["First item", "Second item", "3nd item"];//default items
+const workItems = [];
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true})); 
 app.use(express.static("public"));
 
 app.get("/", function (req, res) {
-    let today = new Date();
-    let day = today.toLocaleDateString("en-US", {weekday: "long", day: "numeric", month: "long"});
-
-    res.render("list", {listTitle: day, newListItems: items});//ejs method
+    res.render("list", {listTitle: date.getDate(), newListItems: items});//ejs method
 
 });
 
