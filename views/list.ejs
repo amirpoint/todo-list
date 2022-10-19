@@ -1,49 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>To Do List</title>
-        <link rel="stylesheet" href="styles.css">
-        
-    </head>
-    <body>
-        <div class="context">
-            <div class="heading box">
-                <h1><%= kindOfDay %></h1>
-            </div>
-            <div class="box">
-                    <% for (let i = 0; i < newListItems.length; i++) { %>
-                        <div class="item">
-                            <input type="checkbox">
-                            <p><%= newListItems[i] %> </p>
-                        </div>
-                    <% } %>
-            
-                <form class="item" action="/" method="post">
-                    <input type="text" name="newItem" id="" placeholder="Add new one" autocomplete="off">
-                    <button type="submit" name="btn">+</button>
-                </form>
+<%- include("header") %> 
 
-            </div>
+    <div class="context">
+        <div class="heading box">
+            <h1><%= listTitle %></h1>
         </div>
+        <div class="box">
+                <% for (let i = 0; i < newListItems.length; i++) { %>
+                    <div class="item">
+                        <input type="checkbox">
+                        <p><%= newListItems[i] %> </p>
+                    </div>
+                <% } %>
+        
+            <form class="item" action="/" method="post">
+                <input type="text" name="newItem" placeholder="Add new one" autocomplete="off">
+                <button type="submit" name="btn" value="<%= listTitle %>">+</button>
+            </form>
 
-        <!-- background animation -->
-        <div class="area" >
-                    <ul class="circles">
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                    </ul>
-            </div>
-    </body>
-</html>
+        </div>
+    </div>
+
+    <!-- background animation -->
+    <div class="area" >
+        <ul class="circles">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+        </ul>
+    </div>
+
+<%- include("footer") %> 
 
