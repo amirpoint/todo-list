@@ -7,7 +7,7 @@
 
 body{
     font-family: 'Exo', sans-serif;
-
+    min-width: 400px;
 }
 
 h1 {
@@ -21,6 +21,27 @@ h1 {
   background: white;
   border-radius: 5px;
   box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 600px) {
+    .box {
+      max-width: 300px;
+
+    }
+    
+    .heading {
+      max-width: 300px !important;
+    
+    }
+    
+    button {
+      position: relative;
+      right: 15px;
+      min-height: 37px !important;
+      min-width: 37px;
+      font-size: 25px !important;
+
+    }
 }
 
 .context {
@@ -106,8 +127,11 @@ input[type="text"]:focus {
 }
 
 footer {
+  height: 0px;
+  position: relative;
+  bottom: 30px;
   color: white;
-  color: rgba(0, 0, 0, 0.5);
+  opacity: 1;
   text-align: center;
 }
 
