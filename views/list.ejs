@@ -11,12 +11,12 @@
                             <input type="checkbox" name="checkbox" value="<%= item._id %>" onchange="this.form.submit()">
                             <p><%= item.name %> </p>
                         </div>
-                    </form>	
+                    </form>  
                 <% }); %>
 
             <form class="item" action="/" method="post">
                 <input type="text" name="newItem" placeholder="Add new one" autocomplete="off">
-                <button type="submit" name="btn" value="<%= listTitle %>">+</button>
+                <button type="submit" name="list" value="<%= listTitle %>">+</button>
             </form>
 
         </div>
@@ -38,5 +38,4 @@
         </ul>
     </div>
 
-<%- include("footer") %> 
-
+<%- include("footer") %>
