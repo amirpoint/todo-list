@@ -28,18 +28,11 @@ const itemsSchema = {
 
 const Item = mongoose.model("Item", itemsSchema);
 
-
-const item1 = new Item({
-  name: "Welcome to your todolist!"
-});
-
-const item2 = new Item({
-  name: "Hit the + button to add a new item."
-});
-
-const item3 = new Item({
-  name: "<- Hit this to delete an item."
-});
+const defaultItems = [
+    new Item({name: "Welcome to your todolist!"}),
+    new Item({name: "Hit the + button to add a new item."}),
+    new Item({name: "<- Hit this to delete an item."})
+];
 
 const listSchema = {
     name: {
@@ -54,7 +47,7 @@ const List = mongoose.model("List", listSchema);
 app.get("/", function (req, res) {
     Item.find({}, function(err, foundItems){
         if (foundItems.length === 0) {            
-            Item.insertMany([item1, item2, item3], function(err){
+            Item.insertMany(defaultItems, function(err){
                 if(!err){
                     console.log("Inserted the default items to the database.");
                 }
@@ -76,7 +69,7 @@ app.get("/:customListName", function (req, res) {
                 //create a new one
                 const list = new List({
                     name: req.params.customListName,
-                    items: [item1, item2, item3]
+                    items: defaultItems
                 });
                 
                 list.save();
@@ -88,15 +81,24 @@ app.get("/:customListName", function (req, res) {
         }
     });
 
-  });
+});
 
 app.post("/delete", function (req, res) {
-    Item.findByIdAndRemove(req.body.checkbox, function (err) {
-        if (!err) {
-            console.log("Successfully deleted checked item.");
-        }
-    });
-    res.redirect("/");    
+    if (req.body.listName === "Today ") {
+        Item.findByIdAndRemove(req.body.checkbox, function (err) {
+            if (!err) {
+                console.log("Successfully deleted checked item.");
+            }
+        });
+        res.redirect("/");
+    } else {
+        List.findOneAndUpdate({name: req.body.listName.slice(0,-1)}, {$pull: {items: {_id: req.body.checkbox}}}, function (err, foundList) {
+            if (!err) {
+                console.log(`Successfully deleted checked item in ${req.body.listName.slice(0,-1)} list.`);
+                res.redirect(`/${req.body.listName.slice(0,-1)}`);
+            }
+        });
+    }
 });
 
 app.post("/", function (req, res) {
@@ -121,7 +123,6 @@ app.post("/", function (req, res) {
 
         });
     }
-
 
 });
 
